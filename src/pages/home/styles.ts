@@ -23,7 +23,7 @@ export const Hero = styled('div', {
 
   [`> ${Text}`]: {
     marginTop: '$2',
-    color: 'ignite.300',
+    color: '$gray200',
   },
 })
 

@@ -4,10 +4,10 @@ import { Form } from "./styles";
 
 export function ClaimUsernameForm() {
   return (
-    <Form>
+    <Form as="form">
       <TextInput size="sm" prefix="ignite.com/" placeholder="seu-usuario" />
       <Button size="sm" type="submit">
-        Reservar Usuário
+        Reservar
         <ArrowRight />
       </Button>
     </Form>
