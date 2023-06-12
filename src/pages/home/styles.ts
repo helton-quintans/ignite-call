@@ -8,6 +8,9 @@ export const Container = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$20',
+  backgroundImage: 'url("/bg-home.png")',
+  backgroundPosition: '30% center',
+  backgroundSize: 'cover',
 })
 
 export const Hero = styled('div', {
@@ -18,7 +21,7 @@ export const Hero = styled('div', {
     '@media(max-width: 600px)': {
       fontSize: '$6xl',
     },
-    // color: 'red',
+    color: '$ignite300',
   },
 
   [`> ${Text}`]: {

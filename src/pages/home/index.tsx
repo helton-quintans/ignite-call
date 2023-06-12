@@ -1,9 +1,9 @@
-import { Heading, Text } from "@ignite-ui/react";
-import { Container, Hero, Preview } from "./styles";
-import Image from "next/image";
+import { Heading, Text } from '@ignite-ui/react'
+import { Container, Hero, Preview } from './styles'
+import Image from 'next/image'
 
-import previewImage from "../../assets/app-preview.png";
-import { ClaimUsernameForm } from "./components/ClaimUsernameForm";
+import previewImage from '../../assets/app-preview.png'
+import { ClaimUsernameForm } from './components/ClaimUsernameForm'
 
 export default function Home() {
   return (
@@ -25,10 +25,10 @@ export default function Home() {
           src={previewImage}
           height={400}
           quality={100}
-          alt="Imagem do calendário da aplicação em funcionamento"
           priority
+          alt="Imagem do calendário da aplicação em funcionamento"
         />
       </Preview>
     </Container>
-  );
+  )
 }
