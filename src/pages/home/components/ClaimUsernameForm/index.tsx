@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Form, FormErrorAnnotation } from './styles'
 
-const ClaimUsernameFormSchema = z.object({
+const claimUsernameFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'Precisa ter no mínimo 3 caracteres' })
@@ -13,7 +13,7 @@ const ClaimUsernameFormSchema = z.object({
     .transform((username) => username.toLowerCase),
 })
 
-type ClaimUsernameFormData = z.infer<typeof ClaimUsernameFormSchema>
+type ClaimUsernameFormData = z.infer<typeof claimUsernameFormSchema>
 
 export function ClaimUsernameForm() {
   const {
@@ -21,11 +21,11 @@ export function ClaimUsernameForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<ClaimUsernameFormData>({
-    resolver: zodResolver(ClaimUsernameFormSchema),
+    resolver: zodResolver(claimUsernameFormSchema),
   })
 
   async function handleClaimUsername(data: ClaimUsernameFormData) {
-    console.log(data)
+    console.log(data.username)
   }
 
   return (
