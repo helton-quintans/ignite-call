@@ -44,10 +44,10 @@ export function ClaimUsernameForm() {
       </Form>
 
       <FormErrorAnnotation>
-        <Text size="sm">
+        <Text size="sm" className={errors.username ? 'error-message' : ''}>
           {errors.username
             ? errors.username.message
-            : 'Digite o nome do usuário desejado'}
+            : 'Digite o nome do usuário desejado.'}
         </Text>
       </FormErrorAnnotation>
     </>

@@ -16,6 +16,10 @@ export const FormErrorAnnotation = styled('div', {
   marginTop: '$2',
 
   [`> ${Text}`]: {
-    color: '$gray400',
+    color: '$ignite500',
+  },
+
+  '& .error-message': {
+    color: 'red',
   },
 })
