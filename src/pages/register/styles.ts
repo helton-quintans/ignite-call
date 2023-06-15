@@ -3,7 +3,8 @@ import { Box, Heading, Text, styled } from '@ignite-ui/react'
 export const Container = styled('main', {
   maxWidth: 572,
   margin: '$20 auto $4',
-  padding: '0 $4',
+  padding: '$2 $4',
+  borderRadius: '8px',
 })
 
 export const Header = styled('div', {
@@ -19,4 +20,15 @@ export const Header = styled('div', {
   },
 })
 
-export const Form = styled(Box, {})
+export const Form = styled(Box, {
+  marginTop: '$6',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$4',
+
+  label: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '$2',
+  },
+})
