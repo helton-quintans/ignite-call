@@ -1,21 +1,27 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
+// import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { api } from '../../lib/axios'
+
+import { AxiosError } from 'axios'
 import { Container, Form, FormError, Header } from './styles'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
 const registerFormSchema = z.object({
   username: z
     .string()
-    .min(3, { message: 'Precisa ter no mínimo 3 caracteres' })
-    .regex(/^([a-z\\-]+)$/i, { message: 'Apenas letras e hifens' })
-    .transform((username) => username.toLowerCase),
+    .min(3, { message: 'O usuário precisa ter pelo menos 3 letras.' })
+    .regex(/^([a-z\\-]+)$/i, {
+      message: 'O usuário pode ter apenas letras e hifens.',
+    })
+    .transform((username) => username.toLowerCase()),
   name: z
     .string()
-    .min(3, { message: 'O nome precisa ter pelo menos 3 letras' }),
+    .min(3, { message: 'O nome precisa ter pelo menos 3 letras.' }),
 })
 
 type RegisterFormData = z.infer<typeof registerFormSchema>
@@ -34,41 +40,52 @@ export default function Register() {
 
   useEffect(() => {
     if (router.query.username) {
-      setValue('username', () => String(router.query.username))
+      setValue('username', String(router.query.username))
     }
   }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
-    // try {
-    //   //   const response = await api.post('/users', {
-    //   //     name: formState.name,
-    //   //     email: formState.email,
-    //   //     password: formState.password
-    //   //   })
-    // } catch (error) {
-    //   console.log(error)
-    // }
-  }
-  return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem-vindo(a) ao hq call!</Heading>
-        <Text>
-          Precisamos de algumas informações para criar o seu perfil! Ah, você
-          pode editar essa informaçõs depois.
-        </Text>
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
 
-        <MultiStep size={4} currentStep={1} />
+      // await router.push('/register/connect-calendar')
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert('Este usuário já existe.')
+        return
+      }
+
+      console.error(err)
+    }
+  }
+
+  return (
+    <>
+      {/* <NextSeo title="Crie uma conta | Hq Call" /> */}
+
+      <Container>
+        <Header>
+          <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
+          <Text>
+            Precisamos de algumas informações para criar seu perfil! Ah, você
+            pode editar essas informações depois.
+          </Text>
+
+          <MultiStep size={4} currentStep={1} />
+        </Header>
 
         <Form as="form" onSubmit={handleSubmit(handleRegister)}>
           <label>
-            <Text size="sm">Nome do usuário</Text>
+            <Text size="sm">Nome de usuário</Text>
             <TextInput
-              prefix="hqcall.com/"
+              prefix="ignite.com/"
               placeholder="seu-usuário"
               {...register('username')}
             />
+
             {errors.username && (
               <FormError size="sm">{errors.username.message}</FormError>
             )}
@@ -76,18 +93,19 @@ export default function Register() {
 
           <label>
             <Text size="sm">Nome completo</Text>
-            <TextInput placeholder="seu nome" {...register('name')} />
+            <TextInput placeholder="Seu nome" {...register('name')} />
+
             {errors.name && (
               <FormError size="sm">{errors.name.message}</FormError>
             )}
           </label>
 
           <Button type="submit" disabled={isSubmitting}>
-            Próximo Passo
+            Próximo passo
             <ArrowRight />
           </Button>
         </Form>
-      </Header>
-    </Container>
+      </Container>
+    </>
   )
 }
