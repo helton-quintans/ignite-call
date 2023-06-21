@@ -1,6 +1,8 @@
 import { Box, styled } from '@ignite-ui/react'
 
 export const ConnectBox = styled(Box, {
+  maxWidth: 440,
+  width: '100%',
   marginTop: '$6',
   display: 'flex',
   flexDirection: 'column',
