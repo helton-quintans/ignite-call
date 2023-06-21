@@ -1,16 +1,17 @@
-import { styled, Heading, Text } from '@ignite-ui/react'
+import { Heading, Text, styled } from '@ignite-ui/react'
 
 export const Container = styled('div', {
   maxWidth: 'calc(100vw - (100vw - 1160px) / 2)',
   marginLeft: 'auto',
   height: '100vh',
-  overflow: 'hidden',
+  // overflow: 'hidden',
   display: 'flex',
   alignItems: 'center',
   gap: '$20',
   backgroundImage: 'url("/bg-home.png")',
-  backgroundPosition: '30% center',
+  // backgroundPosition: '30% center',
   backgroundSize: 'cover',
+  // backgroundColor: 'red',
 })
 
 export const Hero = styled('div', {

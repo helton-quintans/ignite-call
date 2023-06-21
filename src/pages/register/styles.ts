@@ -3,7 +3,7 @@ import { Box, Heading, Text, styled } from '@ignite-ui/react'
 export const Container = styled('main', {
   // maxWidth: 572,
   width: '100vw',
-  margin: '$ auto $4',
+  margin: '$4',
   padding: '0 $4',
   borderRadius: '8px',
   // background: 'red',
@@ -12,12 +12,11 @@ export const Container = styled('main', {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  minHeight: '100vh',
+  // minHeight: '100vh',
 })
 
 export const Header = styled('div', {
   maxWidth: 480,
-  padding: '0 $2',
 
   [`> ${Heading}`]: {
     lineHeight: '$base',
@@ -30,7 +29,7 @@ export const Header = styled('div', {
 })
 
 export const Form = styled(Box, {
-  maxWidth: 440,
+  maxWidth: 480,
   width: '100%',
   marginTop: '$6',
   display: 'flex',
