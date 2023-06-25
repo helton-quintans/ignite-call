@@ -1,14 +1,20 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 // import { NextSeo } from 'next-seo'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
-import { signIn } from 'next-auth/react'
-import { ArrowRight } from 'phosphor-react'
+import { signIn, useSession } from 'next-auth/react'
+import { ArrowRight, Check } from 'phosphor-react'
 import { Container, Header } from '../styles'
-import { ConnectBox, ConnectItem } from './styles'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 export default function ConnectCalendar() {
-  // const router = useRouter()
+  const session = useSession()
+  const router = useRouter()
+
+  console.log(session)
+
+  const hasAuthError = !!router.query.error
+  const isSignedIn = session.status === 'authenticated'
 
   // async function handleRegister(data: RegisterFormData) {}
 
@@ -30,19 +36,33 @@ export default function ConnectCalendar() {
         <ConnectBox>
           <ConnectItem>
             <Text>Google Calendar</Text>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault()
-                signIn('google')
-              }}
-            >
-              Conectar
-              <ArrowRight />
-            </Button>
+            {isSignedIn ? (
+              <Button>
+                Conectado <Check />
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault()
+                  signIn('google')
+                }}
+              >
+                Conectar
+                <ArrowRight />
+              </Button>
+            )}
           </ConnectItem>
-          <Button>
+
+          {hasAuthError && (
+            <AuthError size="sm">
+              Falha ao se conectar ao Google, verifique se você habilitou as
+              permissões de acesso ao Google Calendar
+            </AuthError>
+          )}
+
+          <Button disabled={!isSignedIn}>
             Próximo passo
             <ArrowRight />
           </Button>
